@@ -17,7 +17,6 @@ export default function HeroSection({}: Props) {
   return (
     <section className="w-full">
       <div className="mx-auto grid max-w-7xl grid-cols-1 pt-8 md:grid-cols-2">
-        {/* Main Content */}
         <div className="flex flex-col space-y-3 py-12">
           <h1 className="flex flex-col space-y-5 text-6xl font-bold text-sky-800">
             <span> Assisting Radiologists In</span>

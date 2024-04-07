@@ -1,14 +1,16 @@
+
 "use client"
+import axios from "axios";
 import Image from "next/image";
 import React, { useState, useRef, useEffect } from "react";
 
 export default function Prediction() {
   const formRef = useRef(null);
-  const [path, setPath] = useState(null);
-  const [file, setFile] = useState(null);
-  const [results, setResults] = useState(null);
+  const [path, setPath] = useState<string>("");
+  const [file, setFile] = useState<File | null>(null);
+  const [results, setResults] = useState<any>();
   const [loading, setLoading] = useState(false);
-  const [showResult, setShowResult] = useState(false); // State variable for showing/hiding result
+  const [showResult, setShowResult] = useState(false);
 
   useEffect(() => {
     if (file) {
@@ -16,26 +18,24 @@ export default function Prediction() {
     }
   }, [file]);
 
-  const handleImageChange = (e) => {
-    setFile(e.target.files[0]);
+  const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (e.target.files && e.target.files.length > 0) {
+      setFile(e.target.files[0]);
+    }
   };
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setLoading(true);
     const formData = new FormData();
 
-    formData.append("file", file, file.name);
+    if (file) formData.append("image", file);
 
     try {
-      const response = await fetch(process.env.NEXT_PUBLIC_API_URL + "/api/v1/predict", {
-        method: "POST",
-        body: formData,
-      });
-      const json = await response.json();
-      console.log(json);
+      const response = await axios.post("http://localhost:8000/upload/image", formData);
+      console.log(response);
       setLoading(false);
-      setResults(json);
+      setResults(response.data);
       setShowResult(true); 
     } catch (error) {
       console.error(error);
@@ -44,9 +44,10 @@ export default function Prediction() {
 
   const handleClear = () => {
     setResults(null);
-    setPath(null);
-    formRef.current.reset();
-    setShowResult(false); // Hide result on clear
+    setPath("");
+    setFile(null);
+    formRef.current;
+    setShowResult(false);
   };
 
   return (
