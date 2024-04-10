@@ -28,25 +28,25 @@ export default function Header({}: Props) {
       ),
     },
 
-    menus: [
-      {
-        title: "Home",
-        link: "/",
-        active: true,
-      },
-      {
-        title: "Our Service",
-        link: "/",
-      },
-      {
-        title: "About Us",
-        link: "/",
-      },
-      {
-        title: "Health News",
-        link: "/",
-      },
-    ],
+    // menus: [
+    //   {
+    //     title: "Home",
+    //     link: "/",
+    //     active: true,
+    //   },
+    //   {
+    //     title: "Our Service",
+    //     link: "/",
+    //   },
+    //   {
+    //     title: "About Us",
+    //     link: "/",
+    //   },
+    //   {
+    //     title: "Health News",
+    //     link: "/",
+    //   },
+    // ],
     button: "Login",
   };
   return (
@@ -60,9 +60,9 @@ export default function Header({}: Props) {
           </span>
         </div>
         {/* Menu Items */}
-        <ul className="flex flex-row space-x-8">
-          {content?.menus &&
-            content?.menus.map((item, i) => (
+        {/* <ul className="flex flex-row space-x-8">
+          {content&&
+            content?.map((item, i) => (
               <Link href={item?.link} key={i}>
                 <li
                   className={`${
@@ -73,7 +73,7 @@ export default function Header({}: Props) {
                 </li>
               </Link>
             ))}
-        </ul>
+        </ul> */}
 
         <button className="rounded-md bg-sky-900 px-6 py-3 font-semibold text-white transition hover:bg-sky-900/90 focus:outline-none">
           {content?.button}
